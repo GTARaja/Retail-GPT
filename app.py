@@ -12,7 +12,6 @@ import os
 
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
-os.environ['GOOGLE_API_KEY'] =  'AIzaSyD0W_tAHffQRKH5_sZMa_Tuy0NJfrsDK8E'
 
 def get_pdf_text(pdf_docs):
     text=""
