@@ -110,8 +110,8 @@ def search_chroma(vectordb,question):
     model = ChatGoogleGenerativeAI(model="gemini-pro",
                                    temperature=0.3)
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
-    print("Raj2" + question + "Vijay2")
-    print(docs)
+    st.write("Raj2" + question + "Vijay2")
+    st.write(docs)
     response = chain({"input_documents": docs, "question": question},return_only_outputs=True)
     #print(output)
     print(response['output_text'])
