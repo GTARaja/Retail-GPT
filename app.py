@@ -19,10 +19,14 @@ with st.sidebar:
     ('Conversion','User Guide','Administration','Operations'))
     if st.button("Process"):
         with st.spinner("Processing"):
-            raw_text = get_pdf_text(pdf_docs)
-            text_chunks = get_text_chunks(raw_text)
-            vector_store = get_vector_store(text_chunks)
-            st.session_state.conversation = get_conversational_chain(vector_store)
+            if ques == 'Conversion':
+                persist_directory = 'chromadb_oconversion'
+            if ques == 'User Guide':
+                persist_directory = 'chromadb_oconversion'   
+            if ques == 'Administration':
+                persist_directory = 'chromadb_oconversion'  
+            if ques == 'Operations':
+                persist_directory = 'chromadb_oconversion'  
             st.success("Done")
 
 
