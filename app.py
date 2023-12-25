@@ -11,7 +11,7 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import UnstructuredMarkdownLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
-persist_directory1='chromadb_oconversion'
+persist_directory1='./chromadb_oadmin'
 folder=''
 #load_dotenv()
 with st.sidebar:
@@ -62,10 +62,10 @@ def get_text():
 
 def prepare():
     #print(folder)
-    loader = PyPDFDirectoryLoader("oconversion")
+    loader = PyPDFDirectoryLoader("./oadmin")
     data = loader.load_and_split()
     print(data)
-    persist_directory = 'chromadb_oconversion'
+    persist_directory = './chromadb_oadmin'
     print(persist_directory)
     context = "\n".join(str(p.page_content) for p in data)
     print("The total number of words in the context:", len(context))
@@ -89,8 +89,8 @@ def load_chroma(persist_directory1):
         vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
 st.write(persist_directory1)
-vectordb=load_chroma(persist_directory1)
-#vectordb=prepare()
+#vectordb=load_chroma(persist_directory1)
+vectordb=prepare()
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
 
