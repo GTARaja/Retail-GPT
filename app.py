@@ -75,7 +75,7 @@ def get_text():
     input_text = st.text_input("", key="input")
     return input_text
 
-def prepare():
+def prepare(folder,persist_dir):
     st.write(folder,persist_dir)
     loader = PyPDFDirectoryLoader(folder)
     data = loader.load_and_split()
