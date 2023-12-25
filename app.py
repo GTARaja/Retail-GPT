@@ -62,10 +62,10 @@ def get_text():
 
 def prepare():
     #print(folder)
-    loader = PyPDFDirectoryLoader("oadmin")
+    loader = PyPDFDirectoryLoader("oconversion")
     data = loader.load_and_split()
     print(data)
-    persist_directory = 'chromadb_oadmin'
+    persist_directory = 'chromadb_oconversion'
     print(persist_directory)
     context = "\n".join(str(p.page_content) for p in data)
     print("The total number of words in the context:", len(context))
@@ -90,6 +90,7 @@ def load_chroma(persist_directory1):
     return vector_index
 st.write(persist_directory1)
 vectordb=load_chroma(persist_directory1)
+vectordb=prepare()
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
 
