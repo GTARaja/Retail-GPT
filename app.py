@@ -1,4 +1,3 @@
-#import openai
 import streamlit as st
 import google.generativeai as genai
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -9,7 +8,6 @@ from streamlit_chat import message
 from dotenv import load_dotenv
 import os
 from langchain.vectorstores import Chroma
-import openai
 from langchain.document_loaders import UnstructuredMarkdownLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
