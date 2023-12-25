@@ -89,8 +89,8 @@ def load_chroma(persist_directory1):
         vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
 st.write(persist_directory1)
-#vectordb=load_chroma(persist_directory1)
-vectordb=prepare()
+vectordb=load_chroma(persist_directory1)
+#vectordb=prepare()
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
 
