@@ -80,9 +80,9 @@ def prepare():
     vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
 
-def load_chroma():
+def load_chroma(persist_directory):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
-        persist_directory = 'chromadb_oconversion'
+        #persist_directory = 'chromadb_oconversion'
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
         vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
