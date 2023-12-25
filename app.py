@@ -60,7 +60,7 @@ def get_text():
     return input_text
 
 def prepare():
-    print(folder)
+    #print(folder)
     loader = PyPDFDirectoryLoader("oadmin")
     data = loader.load_and_split()
     print(data)
