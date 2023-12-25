@@ -21,12 +21,16 @@ with st.sidebar:
         with st.spinner("Processing"):
             if ques == 'Conversion':
                 persist_directory = 'chromadb_oconversion'
+                folder = 'oconversion'
             if ques == 'User Guide':
-                persist_directory = 'chromadb_oconversion'   
+                persist_directory = 'chromadb_oug'   
+                folder = 'oug'
             if ques == 'Administration':
-                persist_directory = 'chromadb_oconversion'  
+                persist_directory = 'chromadb_oadmin'  
+                folder = 'oadmin'
             if ques == 'Operations':
-                persist_directory = 'chromadb_oconversion'  
+                persist_directory = 'chromadb_operations'  
+                folder = 'operations'
             st.success("Done")
 
 
@@ -34,7 +38,7 @@ for m in genai.list_models():
   if 'generateContent' in m.supported_generation_methods:
     print(m.name)
 model = genai.GenerativeModel('gemini-pro')
-persist_directory = 'chromadb_oconversion'
+#persist_directory = 'chromadb_oconversion'
 
 
 
@@ -56,10 +60,12 @@ def get_text():
     return input_text
 
 def prepare():
-    loader = PyPDFDirectoryLoader("oconversion")
+    print(folder)
+    loader = PyPDFDirectoryLoader(folder)
     data = loader.load_and_split()
     print(data)
-    persist_directory = 'chromadb_oconversion'
+    #persist_directory = 'chromadb_oconversion'
+    print(persist_directory)
     context = "\n".join(str(p.page_content) for p in data)
     print("The total number of words in the context:", len(context))
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=200)
