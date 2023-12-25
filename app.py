@@ -61,10 +61,10 @@ def get_text():
 
 def prepare():
     print(folder)
-    loader = PyPDFDirectoryLoader(folder)
+    loader = PyPDFDirectoryLoader("oadmin")
     data = loader.load_and_split()
     print(data)
-    #persist_directory = 'chromadb_oconversion'
+    persist_directory = 'chromadb_oadmin'
     print(persist_directory)
     context = "\n".join(str(p.page_content) for p in data)
     print("The total number of words in the context:", len(context))
