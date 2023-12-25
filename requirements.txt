@@ -8,3 +8,4 @@ faiss-cpu
 streamlit_chat
 chromadb==0.3.29
 pysqlite3-binary
+pypdf
