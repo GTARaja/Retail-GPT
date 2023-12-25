@@ -62,10 +62,10 @@ def get_text():
 
 def prepare():
     #print(folder)
-    loader = PyPDFDirectoryLoader("./oadmin")
+    loader = PyPDFDirectoryLoader("./oconversion")
     data = loader.load_and_split()
     print(data)
-    persist_directory = './chromadb_oadmin'
+    persist_directory = './chromadb_oconversion'
     print(persist_directory)
     context = "\n".join(str(p.page_content) for p in data)
     print("The total number of words in the context:", len(context))
@@ -85,12 +85,12 @@ def load_chroma(persist_directory1):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
         persist_directory = './chromadb_oadmin'
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-        st.write(persist_directory)
+        #st.write(persist_directory)
         vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
-st.write(persist_directory1)
-vectordb=load_chroma(persist_directory1)
-#vectordb=prepare()
+#st.write(persist_directory1)
+#vectordb=load_chroma(persist_directory1)
+vectordb=prepare()
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
 
@@ -111,8 +111,8 @@ def search_chroma(vectordb,question):
     model = ChatGoogleGenerativeAI(model="gemini-pro",
                                    temperature=0.3)
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
-    st.write("Raj2" + question + "Vijay2")
-    st.write(docs)
+    #st.write("Raj2" + question + "Vijay2")
+    #st.write(docs)
     response = chain({"input_documents": docs, "question": question},return_only_outputs=True)
     #print(output)
     print(response['output_text'])
