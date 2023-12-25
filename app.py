@@ -13,7 +13,11 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
 
 #load_dotenv()
+ques = st.radio(
 
+    "Documentation",
+
+    ('Conversion','User Guide','Administration','Operations'))
 for m in genai.list_models():
   if 'generateContent' in m.supported_generation_methods:
     print(m.name)
