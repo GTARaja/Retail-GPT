@@ -6,3 +6,4 @@ python-dotenv
 langchain
 faiss-cpu
 streamlit_chat
+chromadb
