@@ -101,11 +101,11 @@ def get_text():
 
 #st.write(persist_directory1)
 #vectordb=load_chroma(persist_dir)
-vectordb=prepare(folder,persist_dir)
+#vectordb=prepare(folder,persist_dir)
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
-
-    # vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+    st.write("Raj"+persist_dir)
+    vectordb = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
 
     print("Raj"+question+"Vijay")
 
