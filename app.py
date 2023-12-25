@@ -11,7 +11,7 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import UnstructuredMarkdownLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
-persist_directory=''
+persist_directory='chromadb_oconversion'
 folder=''
 #load_dotenv()
 with st.sidebar:
@@ -88,7 +88,7 @@ def load_chroma(persist_directory):
         print(persist_directory)
         vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
-
+print(persist_directory)
 vectordb=load_chroma(persist_directory)
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
