@@ -102,7 +102,7 @@ def get_text():
 #st.write(persist_directory1)
 #vectordb=load_chroma(persist_dir)
 #vectordb=prepare(folder,persist_dir)
-def search_chroma(vectordb,question,persist_dir):
+def search_chroma(question,persist_dir):
     #result_docs = vectordb.similarity_search(query)
     st.write("Raj"+persist_dir)
     vectordb = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
@@ -147,7 +147,7 @@ if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             #response = chat_engine.chat(prompt)
-            output = search_chroma(vectordb, prompt,persist_dir)
+            output = search_chroma(prompt,persist_dir)
             st.write(output)
             message = {"role": "assistant", "content": output}
             st.session_state.messages.append(message) # Add response to message history
