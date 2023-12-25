@@ -12,13 +12,13 @@ from langchain.document_loaders import UnstructuredMarkdownLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
 persist_directory1='./chromadb_oadmin'
-folder=''
+#folder=''
 #load_dotenv()
 model = genai.GenerativeModel('gemini-pro')
 #persist_directory = 'chromadb_oconversion'
 def load_chroma(persist_directory1):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
-        #persist_directory = './chromadb_oconversion'
+        persist_directory1 = './chromadb_oadmin'
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
         st.write(persist_directory1)
         vector_index = Chroma(persist_directory=persist_directory1, embedding_function=embeddings)
@@ -96,7 +96,7 @@ def prepare():
 
 
 #st.write(persist_directory1)
-#vectordb=load_chroma(persist_directory1)
+vectordb=load_chroma(persist_directory1)
 #vectordb=prepare()
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
