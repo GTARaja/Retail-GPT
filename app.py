@@ -11,7 +11,7 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import UnstructuredMarkdownLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
-persist_directory='chromadb_oconversion'
+persist_directory1='chromadb_oconversion'
 folder=''
 #load_dotenv()
 with st.sidebar:
@@ -21,16 +21,16 @@ with st.sidebar:
     if st.button("Process"):
         with st.spinner("Processing"):
             if ques == 'Conversion':
-                persist_directory = 'chromadb_oconversion'
+                persist_directory1 = 'chromadb_oconversion'
                 folder = 'oconversion'
             if ques == 'User Guide':
-                persist_directory = 'chromadb_oug'   
+                persist_directory1 = 'chromadb_oug'   
                 folder = 'oug'
             if ques == 'Administration':
-                persist_directory = 'chromadb_oadmin'  
+                persist_directory1 = 'chromadb_oadmin'  
                 folder = 'oadmin'
             if ques == 'Operations':
-                persist_directory = 'chromadb_operations'  
+                persist_directory1 = 'chromadb_operations'  
                 folder = 'operations'
             st.success("Done")
 
@@ -81,15 +81,15 @@ def prepare():
     vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
 
-def load_chroma(persist_directory):
+def load_chroma(persist_directory1):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
         #persist_directory = 'chromadb_oconversion'
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-        st.write(persist_directory)
-        vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+        st.write(persist_directory1)
+        vector_index = Chroma(persist_directory=persist_directory1, embedding_function=embeddings)
     return vector_index
-st.write(persist_directory)
-vectordb=load_chroma(persist_directory)
+st.write(persist_directory1)
+vectordb=load_chroma(persist_directory1)
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
 
