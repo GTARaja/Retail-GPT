@@ -11,8 +11,8 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import UnstructuredMarkdownLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
-persist_dir='./chromadb_oadmin'
-folder='oadmin'
+#persist_dir='./chromadb_oadmin'
+#folder='oadmin'
 #load_dotenv()
 model = genai.GenerativeModel('gemini-pro')
 #persist_dir = 'chromadb_oconversion'
