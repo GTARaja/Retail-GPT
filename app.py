@@ -96,7 +96,7 @@ def prepare():
 
 
 #st.write(persist_directory1)
-vectordb=load_chroma(persist_directory1)
+#vectordb=load_chroma(persist_directory1)
 #vectordb=prepare()
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
