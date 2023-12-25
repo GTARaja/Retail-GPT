@@ -13,11 +13,19 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
 
 #load_dotenv()
-ques = st.radio(
-
-    "Documentation",
-
+with st.sidebar:
+    st.title("Settings")
+    ques = st.radio( "Documentation",
     ('Conversion','User Guide','Administration','Operations'))
+    if st.button("Process"):
+        with st.spinner("Processing"):
+            raw_text = get_pdf_text(pdf_docs)
+            text_chunks = get_text_chunks(raw_text)
+            vector_store = get_vector_store(text_chunks)
+            st.session_state.conversation = get_conversational_chain(vector_store)
+            st.success("Done")
+
+
 for m in genai.list_models():
   if 'generateContent' in m.supported_generation_methods:
     print(m.name)
