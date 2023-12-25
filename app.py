@@ -11,17 +11,17 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import UnstructuredMarkdownLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
-persist_directory1='./chromadb_oadmin'
-#folder=''
+persist_dir='./chromadb_oadmin'
+folder='oadmin'
 #load_dotenv()
 model = genai.GenerativeModel('gemini-pro')
-#persist_directory = 'chromadb_oconversion'
-def load_chroma(persist_directory1):
+#persist_dir = 'chromadb_oconversion'
+def load_chroma(persist_dir):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
-        persist_directory1 = './chromadb_oadmin'
+        persist_dir = './chromadb_oadmin'
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-        st.write(persist_directory1)
-        vector_index = Chroma(persist_directory=persist_directory1, embedding_function=embeddings)
+        st.write(persist_dir)
+        vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
     return vector_index
     
 with st.sidebar:
@@ -33,18 +33,20 @@ with st.sidebar:
     if st.button("Process"):
         with st.spinner("Processing"):
             if ques == 'Conversion':
-                persist_directory1 = './chromadb_oconversion'
-                #folder = 'oconversion'
-                vectordb=load_chroma(persist_directory1)
+                persist_dir = './chromadb_oconversion'
+                folder = 'oconversion'
+                vectordb=prepare(folder,persist_dir)
+                #vectordb=load_chroma(persist_directory1)
             if ques == 'User Guide':
-                persist_directory1 = './chromadb_oug'   
+                persist_dir = './chromadb_oug'   
                 #folder = 'oug'
+                vectordb=prepare(folder,persist_dir) 
             if ques == 'Administration':
-                persist_directory1 = './chromadb_oadmin'  
-                #folder = 'oadmin'
-                vectordb=load_chroma(persist_directory1)
+                persist_dir = './chromadb_oadmin'  
+                folder = 'oadmin'
+                vectordb=prepare(folder,persist_dir)
             if ques == 'Operations':
-                persist_directory1 = 'chromadb_operations'  
+                persist_dir = 'chromadb_operations'  
                 #folder = 'operations'
             st.success("Done")
 
@@ -74,30 +76,30 @@ def get_text():
     return input_text
 
 def prepare():
-    #print(folder)
-    loader = PyPDFDirectoryLoader("./oconversion")
+    st.write(folder,persist_dir)
+    loader = PyPDFDirectoryLoader(folder)
     data = loader.load_and_split()
     print(data)
-    persist_directory = './chromadb_oconversion'
-    print(persist_directory)
+    #persist_directory = './chromadb_oconversion'
+    #print(persist_directory)
     context = "\n".join(str(p.page_content) for p in data)
     print("The total number of words in the context:", len(context))
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=200)
     context = "\n\n".join(str(p.page_content) for p in data)
     texts = text_splitter.split_text(context)
-    # vectordb = Chroma.from_documents(documents=texts, embedding=embeddings, persist_directory=persist_directory)
-    #vectordb = Chroma.from_documents(documents=pages, embedding=embeddings, persist_directory=persist_directory)
+    # vectordb = Chroma.from_documents(documents=texts, embedding=embeddings, persist_directory=persist_dir)
+    #vectordb = Chroma.from_documents(documents=pages, embedding=embeddings, persist_directory=persist_dir)
     # vectordb.persist()
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    vector_index = Chroma.from_texts(texts, embeddings,persist_directory=persist_directory)
+    vector_index = Chroma.from_texts(texts, embeddings,persist_directory=persist_dir)
     vector_index.persist()
-    vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
+    vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
     return vector_index
 
 
 #st.write(persist_directory1)
-vectordb=load_chroma(persist_directory1)
-#vectordb=prepare()
+#vectordb=load_chroma(persist_dir)
+vectordb=prepare(folder,persist_dir)
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
 
