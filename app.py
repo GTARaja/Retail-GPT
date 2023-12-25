@@ -84,7 +84,7 @@ def search_chroma(vectordb,question):
 
     prompt = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
     model = ChatGoogleGenerativeAI(model="gemini-pro",
-                                   temperature=1.0, apikey='AIzaSyD0W_tAHffQRKH5_sZMa_Tuy0NJfrsDK8E')
+                                   temperature=0.3)
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
     print("Raj2" + question + "Vijay2")
     print(docs)
