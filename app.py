@@ -11,7 +11,8 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import UnstructuredMarkdownLoader
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import UnstructuredPDFLoader
-
+persist_directory=''
+folder=''
 #load_dotenv()
 with st.sidebar:
     st.title("Settings")
