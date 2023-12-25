@@ -85,10 +85,10 @@ def load_chroma(persist_directory):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
         #persist_directory = 'chromadb_oconversion'
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-        print(persist_directory)
+        st.write(persist_directory)
         vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
-print(persist_directory)
+st.write(persist_directory)
 vectordb=load_chroma(persist_directory)
 def search_chroma(vectordb,question):
     #result_docs = vectordb.similarity_search(query)
