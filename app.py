@@ -16,6 +16,28 @@ folder='oadmin'
 #load_dotenv()
 model = genai.GenerativeModel('gemini-pro')
 #persist_dir = 'chromadb_oconversion'
+
+def prepare(folder,persist_dir):
+    st.write(folder,persist_dir)
+    loader = PyPDFDirectoryLoader(folder)
+    data = loader.load_and_split()
+    print(data)
+    #persist_directory = './chromadb_oconversion'
+    #print(persist_directory)
+    context = "\n".join(str(p.page_content) for p in data)
+    print("The total number of words in the context:", len(context))
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=200)
+    context = "\n\n".join(str(p.page_content) for p in data)
+    texts = text_splitter.split_text(context)
+    # vectordb = Chroma.from_documents(documents=texts, embedding=embeddings, persist_directory=persist_dir)
+    #vectordb = Chroma.from_documents(documents=pages, embedding=embeddings, persist_directory=persist_dir)
+    # vectordb.persist()
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    vector_index = Chroma.from_texts(texts, embeddings,persist_directory=persist_dir)
+    vector_index.persist()
+    vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
+    return vector_index
+
 def load_chroma(persist_dir):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
         persist_dir = './chromadb_oadmin'
@@ -75,26 +97,6 @@ def get_text():
     input_text = st.text_input("", key="input")
     return input_text
 
-def prepare(folder,persist_dir):
-    st.write(folder,persist_dir)
-    loader = PyPDFDirectoryLoader(folder)
-    data = loader.load_and_split()
-    print(data)
-    #persist_directory = './chromadb_oconversion'
-    #print(persist_directory)
-    context = "\n".join(str(p.page_content) for p in data)
-    print("The total number of words in the context:", len(context))
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=200)
-    context = "\n\n".join(str(p.page_content) for p in data)
-    texts = text_splitter.split_text(context)
-    # vectordb = Chroma.from_documents(documents=texts, embedding=embeddings, persist_directory=persist_dir)
-    #vectordb = Chroma.from_documents(documents=pages, embedding=embeddings, persist_directory=persist_dir)
-    # vectordb.persist()
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    vector_index = Chroma.from_texts(texts, embeddings,persist_directory=persist_dir)
-    vector_index.persist()
-    vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
-    return vector_index
 
 
 #st.write(persist_directory1)
