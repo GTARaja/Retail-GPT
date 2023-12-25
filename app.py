@@ -14,32 +14,45 @@ from langchain.document_loaders import UnstructuredPDFLoader
 persist_directory1='./chromadb_oadmin'
 folder=''
 #load_dotenv()
+model = genai.GenerativeModel('gemini-pro')
+#persist_directory = 'chromadb_oconversion'
+def load_chroma(persist_directory1):
+    with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
+        #persist_directory = './chromadb_oconversion'
+        embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+        st.write(persist_directory1)
+        vector_index = Chroma(persist_directory=persist_directory1, embedding_function=embeddings)
+    return vector_index
+    
 with st.sidebar:
     st.title("Settings")
+    #ques = st.radio( "Documentation",
+    #('Conversion','User Guide','Administration','Operations'))
     ques = st.radio( "Documentation",
-    ('Conversion','User Guide','Administration','Operations'))
+    ('Conversion','Administration'))
     if st.button("Process"):
         with st.spinner("Processing"):
             if ques == 'Conversion':
-                persist_directory1 = 'chromadb_oconversion'
-                folder = 'oconversion'
+                persist_directory1 = './chromadb_oconversion'
+                #folder = 'oconversion'
+                vectordb=load_chroma(persist_directory1)
             if ques == 'User Guide':
-                persist_directory1 = 'chromadb_oug'   
-                folder = 'oug'
+                persist_directory1 = './chromadb_oug'   
+                #folder = 'oug'
             if ques == 'Administration':
-                persist_directory1 = 'chromadb_oadmin'  
-                folder = 'oadmin'
+                persist_directory1 = './chromadb_oadmin'  
+                #folder = 'oadmin'
+                vectordb=load_chroma(persist_directory1)
             if ques == 'Operations':
                 persist_directory1 = 'chromadb_operations'  
-                folder = 'operations'
+                #folder = 'operations'
             st.success("Done")
 
 
 for m in genai.list_models():
   if 'generateContent' in m.supported_generation_methods:
     print(m.name)
-model = genai.GenerativeModel('gemini-pro')
-#persist_directory = 'chromadb_oconversion'
+
 
 
 
@@ -81,13 +94,7 @@ def prepare():
     vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     return vector_index
 
-def load_chroma(persist_directory1):
-    with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
-        persist_directory = './chromadb_oconversion'
-        embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-        #st.write(persist_directory)
-        vector_index = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
-    return vector_index
+
 #st.write(persist_directory1)
 vectordb=load_chroma(persist_directory1)
 #vectordb=prepare()
