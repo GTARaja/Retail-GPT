@@ -45,8 +45,8 @@ def load_chroma(persist_dir,embeddings):
         persist_dir = 'chromadb_oadmin'
         st.write(persist_dir)
         vector_index = Chroma(persist_directory="chromadb_oadmin", embedding_function=embeddings)
-        st.write(vectordb2.get().keys())
-    st.write(len(vectordb2.get()["ids"]))
+        st.write(vector_index.get().keys())
+    st.write(len(vector_index.get()["ids"]))
     #return vector_index
     
 with st.sidebar:
