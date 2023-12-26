@@ -42,7 +42,7 @@ def prepare(folder,persist_dir):
 
 def load_chroma(persist_dir):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
-        persist_dir = './chromadb_oadmin'
+        persist_dir = 'chromadb_oadmin'
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
         st.write(persist_dir)
         vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
@@ -68,7 +68,8 @@ with st.sidebar:
             if ques == 'Administration':
                 persist_dir = './chromadb_oadmin'  
                 folder = 'oadmin'
-                vectordb=prepare(folder,persist_dir)
+                vectordb=load_chroma(persist_dir)
+                #vectordb=prepare(folder,persist_dir)
             if ques == 'Operations':
                 persist_dir = 'chromadb_operations'  
                 #folder = 'operations'
