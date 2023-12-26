@@ -44,7 +44,7 @@ def load_chroma(persist_dir,embeddings):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
         persist_dir = 'chromadb_oadmin'
         st.write(persist_dir)
-        vector_index = Chroma(persist_directory="chromadb_oadmin", embedding_function=embeddings)
+        vector_index = Chroma(persist_directory="./chromadb_oadmin", embedding_function=embeddings)
         st.write(vector_index.get().keys())
     st.write(len(vector_index.get()["ids"]))
     #return vector_index
