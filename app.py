@@ -16,6 +16,7 @@ from langchain.document_loaders import UnstructuredPDFLoader
 #load_dotenv()
 model = genai.GenerativeModel('gemini-pro')
 #persist_dir = 'chromadb_oconversion'
+st.write(os.listdir())
 
 def prepare(folder,persist_dir):
     st.write(folder,persist_dir)
