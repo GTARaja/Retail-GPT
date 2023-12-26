@@ -113,7 +113,7 @@ def search_chroma(question,persist_dir):
     st.write(len(vectordb2.get()["ids"]))
     print("Raj"+str(question)+"Vijay")
     st.write("VECTOR"+str(vectordb)+"Vijay")
-    docs = vectordb.similarity_search(question)
+    docs = vectordb2.similarity_search(question)
     prompt_template = """
       Answer the question as detailed as possible from the provided context, make sure to provide all the details\n\n
       Context:\n {context}?\n
