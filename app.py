@@ -18,7 +18,7 @@ model = genai.GenerativeModel('gemini-pro')
 #persist_dir = 'chromadb_oconversion'
 st.write(os.listdir())
 embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-vector_index = Chroma(persist_directory="./chromadb_oadmin/", embedding_function=embeddings)
+vector_index = Chroma(persist_directory="./chromadb_oadmin", embedding_function=embeddings)
 st.write(vector_index.get().keys())
 st.write(len(vector_index.get()["ids"]))
 def prepare(folder,persist_dir):
