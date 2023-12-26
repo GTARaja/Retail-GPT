@@ -125,7 +125,7 @@ def search_chroma(question,persist_dir):
                                    temperature=0.3)
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
     #st.write("Raj2" + question + "Vijay2")
-    #st.write(docs)
+    st.write(docs)
     response = chain({"input_documents": docs, "question": question},return_only_outputs=True)
     #print(output)
     print(response['output_text'])
