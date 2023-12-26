@@ -107,7 +107,7 @@ def get_text():
 def search_chroma(question,persist_dir):
     #result_docs = vectordb.similarity_search(query)
     st.write("Raj"+persist_dir)
-    vectordb = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
+    vectordb = Chroma(persist_directory="./chromadb_oadmin", embedding_function=embeddings)
     st.write(vectordb.get().keys())
     st.write(len(vectordb.get()["ids"]))
     print("Raj"+str(question)+"Vijay")
