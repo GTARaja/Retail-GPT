@@ -22,6 +22,7 @@ def prepare(folder,persist_dir):
     loader = PyPDFDirectoryLoader(folder)
     data = loader.load_and_split()
     st.write(data)
+    st.write(os.listdir())
     #persist_directory = './chromadb_oconversion'
     #print(persist_directory)
     context = "\n".join(str(p.page_content) for p in data)
