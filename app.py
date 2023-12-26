@@ -112,7 +112,7 @@ with st.sidebar:
     if st.session_state.context != option:
            print("New"+option)
            print("Old" + st.session_state.context)
-           st.write(f"Selected Color: {option}")
+           st.write(f"Selected Context: {option}")
            st.session_state.context = option
            if option == 'Conversion':
                with st.spinner("Processing"):
