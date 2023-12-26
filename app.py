@@ -44,8 +44,8 @@ def load_chroma(persist_dir,embeddings):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
         persist_dir = 'chromadb_oadmin'
         st.write(persist_dir)
-        vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
-    return vector_index
+        #vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
+    #return vector_index
     
 with st.sidebar:
     st.title("Settings")
@@ -67,7 +67,8 @@ with st.sidebar:
             if ques == 'Administration':
                 persist_dir = 'chromadb_oadmin'  
                 folder = 'oadmin'
-                vectordb=load_chroma(persist_dir,embeddings)
+                load_chroma(persist_dir,embeddings)
+                #vectordb=load_chroma(persist_dir,embeddings)
                 #vectordb=prepare(folder,persist_dir)
             if ques == 'Operations':
                 persist_dir = 'chromadb_operations'  
