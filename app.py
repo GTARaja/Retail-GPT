@@ -105,7 +105,7 @@ def load_chroma(persist_dir, embeddings):
 with st.sidebar:
     st.title("Settings")
     option = st.radio("Documentation",
-                    ('Conversion', 'Administration'))
+                    ('Conversion', 'Administration','User Guide'))
     print(option)
     print("New" + option)
     print("Old" + st.session_state.context)
@@ -129,9 +129,18 @@ with st.sidebar:
                    print(len(st.session_state.vectordb.get()["ids"]))
                    st.success("Indexing Completed!")
            elif option == 'User Guide':
-                   st.session_state.persist_dir = './chromadb_oug'
-                   # folder = 'oug'
+                   st.session_state.persist_dir = 'chromadb_ouserguide'
+                   st.session_state.folder = 'ouserguide'
+                   #st.session_state.context = "Conversion"
                    #vectordb = prepare(folder, persist_dir)
+                   # vectordb=load_chroma(persist_directory1)
+                   stt = "Current Context Set to :" + option + str(datetime.now())
+                   print(stt)
+                   st.session_state.vectordb = prepare(st.session_state.folder, st.session_state.persist_dir)
+                   print("RJA" + stt)
+                   print(st.session_state.vectordb.get().keys())
+                   print(len(st.session_state.vectordb.get()["ids"]))
+                   st.success("Indexing Completed!")
            elif option == 'Administration':
                 with st.spinner("Processing"):
                     st.session_state.persist_dir = 'chromadb_oadmin'
