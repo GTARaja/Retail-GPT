@@ -65,7 +65,7 @@ with st.sidebar:
                 #folder = 'oug'
                 vectordb=prepare(folder,persist_dir) 
             if ques == 'Administration':
-                persist_dir = './chromadb_oadmin'  
+                persist_dir = 'chromadb_oadmin'  
                 folder = 'oadmin'
                 vectordb=load_chroma(persist_dir,embeddings)
                 #vectordb=prepare(folder,persist_dir)
