@@ -110,7 +110,7 @@ def search_chroma(question,persist_dir):
     vectordb = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
 
     print("Raj"+str(question)+"Vijay")
-    print("Raj"+str(vectordb)+"Vijay")
+    st.write("VECTOR"+str(vectordb)+"Vijay")
     docs = vectordb.similarity_search(question)
     prompt_template = """
       Answer the question as detailed as possible from the provided context, make sure to provide all the details\n\n
