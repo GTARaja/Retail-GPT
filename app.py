@@ -17,7 +17,7 @@ persist_dir='chromadb_oadmin'
 model = genai.GenerativeModel('gemini-pro')
 #persist_dir = 'chromadb_oconversion'
 st.write(os.listdir())
-
+embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 def prepare(folder,persist_dir):
     st.write(folder,persist_dir)
     loader = PyPDFDirectoryLoader(folder)
@@ -40,10 +40,9 @@ def prepare(folder,persist_dir):
     vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
     return vector_index
 
-def load_chroma(persist_dir):
+def load_chroma(persist_dir,embeddings):
     with st.spinner(text="Loading indexed Retail Documents ! This should take 1-2 minutes."):
         persist_dir = 'chromadb_oadmin'
-        embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
         st.write(persist_dir)
         vector_index = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
     return vector_index
@@ -68,7 +67,7 @@ with st.sidebar:
             if ques == 'Administration':
                 persist_dir = './chromadb_oadmin'  
                 folder = 'oadmin'
-                vectordb=load_chroma(persist_dir)
+                vectordb=load_chroma(persist_dir,embeddings)
                 #vectordb=prepare(folder,persist_dir)
             if ques == 'Operations':
                 persist_dir = 'chromadb_operations'  
